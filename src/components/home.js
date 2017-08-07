@@ -25,6 +25,20 @@ class Home extends Component {
       return ''
     }
   }
+  renderAllPosts() {
+    if (this.props.allPosts) {
+      return this.props.allPosts.map(post => (
+        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="mb-1">{post.title}</h5>
+            <small>Category: {post.category}</small>
+          </div>
+          <p className="mb-1">{post.body}</p>
+          <small>Author: {post.author}</small>
+        </a>
+      ))
+    }
+  }
   render() {
     return(
       <div>
@@ -35,6 +49,12 @@ class Home extends Component {
             <div className="row text-center">
               {this.renderCategories()}
             </div>
+            <div className="text-center">
+              <h2>All Current Posts:</h2>
+              <div className="list-group">
+                {this.renderAllPosts()}
+              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -44,7 +64,8 @@ class Home extends Component {
 }
 function mapStateToProps(state) {
   return {
-    categories: state.categories.categories
+    categories: state.categories.categories,
+    allPosts: state.allPosts.allPosts
   }
 }
 export default connect(mapStateToProps, { fetchCategories, fetchAllPosts })(Home);
