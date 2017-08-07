@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCategories } from '../actions/index';
+import { fetchCategories, fetchAllPosts } from '../actions/index';
 import Jumbotron from '../utils/jumbotron';
 class Home extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class Home extends Component {
   }
   componentWillMount() {
     this.props.fetchCategories();
+    this.props.fetchAllPosts();
     console.log
   }
   renderCategories() {
@@ -46,4 +47,4 @@ function mapStateToProps(state) {
     categories: state.categories.categories
   }
 }
-export default connect(mapStateToProps, { fetchCategories })(Home);
+export default connect(mapStateToProps, { fetchCategories, fetchAllPosts })(Home);

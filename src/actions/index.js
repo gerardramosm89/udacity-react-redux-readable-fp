@@ -16,13 +16,26 @@ export function exampleAction() {
   }
 }
 
+// Fetch Options
+const options = {
+  headers: { Authorization: 'justanexample' }
+}
 export async function fetchCategories() {
-  let categories = await axios.get(`${apiUrl}/categories`, {headers: { Authorization: 'justanexample'}});
+  let categories = await axios.get(`${apiUrl}/categories`, options);
   if (categories) {
-    console.log('categories.data.categories is: ', categories.data.categories);
     return {
       type: 'FETCH_CATEGORIES',
       payload: categories.data.categories
+    }
+  }
+}
+
+export async function fetchAllPosts() {
+  let allPosts = await axios.get(`${apiUrl}/posts`, options);
+  if (allPosts) {
+    return {
+      type: 'FETCH_ALL_POSTS',
+      payload: allPosts.data
     }
   }
 }
