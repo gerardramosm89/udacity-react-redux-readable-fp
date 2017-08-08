@@ -34,13 +34,17 @@ const store = createStore(reducers, composeEnhancers(
 // Components
 import Home from './components/home';
 import ViewCategory from './components/view_category';
+import Navbar from './components/navbar';
+import PostBlog from './components/post_blog';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <ConnectedRouter history={history}>    
         <div>
+          <Navbar />
           <Switch>
+            <Route path="/postblog" component={PostBlog} />
             <Route path="/:category/posts" component={ViewCategory} />
             <Route path="/" component={Home} />
           </Switch>
