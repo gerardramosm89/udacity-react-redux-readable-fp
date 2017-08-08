@@ -8,14 +8,6 @@ export function routePush(route) {
   return push(route)
 }
 
-// Modal Actions
-export function exampleAction() {
-  return {
-    type: 'EXAMPLE_ACTION',
-    payload: { example }
-  }
-}
-
 // Fetch Options
 const options = {
   headers: { Authorization: 'justanexample' }
