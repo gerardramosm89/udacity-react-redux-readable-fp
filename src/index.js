@@ -33,6 +33,7 @@ const store = createStore(reducers, composeEnhancers(
 
 // Components
 import Home from './components/home';
+import ViewCategory from './components/view_category';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -40,6 +41,7 @@ ReactDOM.render(
       <ConnectedRouter history={history}>    
         <div>
           <Switch>
+            <Route path="/:category/posts" component={ViewCategory} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

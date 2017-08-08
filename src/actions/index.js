@@ -39,3 +39,16 @@ export async function fetchAllPosts() {
     }
   }
 }
+
+export async function fetchPostsByCategory(category) {
+  let categoryPosts = await axios.get(`${apiUrl}/${category}/posts`, options);
+  console.log(categoryPosts);
+  try {
+    return {
+      type: 'FETCH_POSTS_BY_CATEGORY',
+      payload: categoryPosts.data
+    }
+  } catch(e) {
+    console.log('ran into an error while fetching categories per post', e);
+  }
+}
