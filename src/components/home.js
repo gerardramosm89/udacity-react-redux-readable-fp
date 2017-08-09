@@ -5,6 +5,7 @@ import { fetchCategories, fetchAllPosts } from '../actions/index';
 import Jumbotron from '../utils/jumbotron';
 import { Card } from '../utils/bootstrap4';
 import sortBy from 'sort-by';
+import axios from 'axios';
 
 class Home extends Component {
   constructor(props) {
@@ -41,7 +42,17 @@ class Home extends Component {
       order: e.target.value
     }, () => console.log(`${this.state.order}${this.state.sortPostsBy}`));
   }
-
+  handleUpVote(id) {
+    axios.defaults.headers.common['Authorization'] = 'justanexample';
+    let options = { option: 'upVote' };
+    axios.post(`http://localhost:5001/posts/${id}`, options).then(() => this.props.fetchAllPosts());
+  }
+  handleDownVote(id) {
+    axios.defaults.headers.common['Authorization'] = 'justanexample';
+    let options = { option: 'downVote' };
+    axios.post(`http://localhost:5001/posts/${id}`, options)
+      .then(() => this.props.fetchAllPosts());
+  }
   renderAllPosts() {
     if (this.props.allPosts) {
       let posts = this.props.allPosts;
@@ -58,8 +69,8 @@ class Home extends Component {
             <small>Author: {post.author}</small>
             <small>Votescore: {post.voteScore}</small>
           </Link>
-          <button style={{position: 'absolute', left: '1rem', bottom: '1rem'}}className="btn btn-info">upvote</button>
-          <button style={{position: 'absolute', left: '7rem', bottom: '1rem'}}className="btn btn-warning">downvote</button>          
+          <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}}className="btn btn-info">upvote</button>
+          <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}}className="btn btn-warning">downvote</button>          
         </div>
       ))
     }
