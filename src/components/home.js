@@ -56,7 +56,6 @@ class Home extends Component {
   renderAllPosts() {
     if (this.props.allPosts) {
       let posts = this.props.allPosts;
-      console.log(posts);
       posts = posts.sort(sortBy(`${this.state.order}${this.state.sortPostsBy}`));
       return posts.map(post => (
         <div key={post.id} style={{position: 'relative'}}>
@@ -70,7 +69,7 @@ class Home extends Component {
             <small>Votescore: {post.voteScore}</small>
           </Link>
           <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}}className="btn btn-info">upvote</button>
-          <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}}className="btn btn-warning">downvote</button>          
+          <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}}className="btn btn-warning">downvote</button>
         </div>
       ))
     }

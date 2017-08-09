@@ -24,6 +24,7 @@ class ViewBlog extends Component {
      return(
       <div>
         <h1>{this.props.singlePost.title}</h1>
+        <hr />
         <p>Author: { author }</p>
         <p>Body: { body }</p>
         <p>Category: { category }</p>
@@ -34,9 +35,12 @@ class ViewBlog extends Component {
   }
   render() {
     return(
-      <div>
-        test
-        {this.renderPost()}
+      <div className="container">
+        <div className="row">
+          <div className="col-8 offset-2">
+            {this.renderPost()}            
+          </div>
+        </div>
       </div>
     );
   }
