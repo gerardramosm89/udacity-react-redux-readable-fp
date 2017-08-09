@@ -8,7 +8,7 @@ class PostBlog extends Component {
     super(props);
     this.state = {
       title: '',
-      owner: '',
+      author: '',
       category: '',
       body: '',
       id: uuidv1(),
@@ -40,7 +40,7 @@ class PostBlog extends Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleInputPassword1">Author</label>
-                  <input onChange={this.handleInputChange.bind(this)} name="owner" className="form-control" placeholder="Enter Author" />
+                  <input onChange={this.handleInputChange.bind(this)} name="author" className="form-control" placeholder="Enter Author" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleSelect1">Select category</label>

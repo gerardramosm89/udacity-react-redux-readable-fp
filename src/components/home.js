@@ -34,7 +34,7 @@ class Home extends Component {
   handleSortBy(e) {
     this.setState({
       sortPostsBy: e.target.value
-    });
+    }, () => console.log(this.state.sortPostsBy));
   }
   handleOrder(e) {
     this.setState({
@@ -46,15 +46,19 @@ class Home extends Component {
     if (this.props.allPosts) {
       let posts = this.props.allPosts;
       return posts.map(post => (
-        <a key={post.id} href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">{post.title}</h5>
-            <small>Category: {post.category}</small>
-          </div>
-          <p className="mb-1">{post.body}</p>
-          <small>Author: {post.author}</small>
-          <small>Votescore: {post.voteScore}</small>
-        </a>
+        <div key={post.id} style={{position: 'relative'}}>
+          <Link style={{paddingBottom: '4rem'}} to={`/posts/${post.id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+            <div className="d-flex w-100 justify-content-between">
+              <h5 className="mb-1">{post.title}</h5>
+              <small>Category: {post.category}</small>
+            </div>
+            <p className="mb-1">{post.body}</p>
+            <small>Author: {post.author}</small>
+            <small>Votescore: {post.voteScore}</small>
+          </Link>
+          <button style={{position: 'absolute', left: '1rem', bottom: '1rem'}}className="btn btn-info">upvote</button>
+          <button style={{position: 'absolute', left: '7rem', bottom: '1rem'}}className="btn btn-warning">downvote</button>          
+        </div>
       ))
     }
   }

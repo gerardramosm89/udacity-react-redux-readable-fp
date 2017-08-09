@@ -22,3 +22,11 @@ export function postsByCategoryReducer(postsByCategory = {}, action) {
       return { ...postsByCategory }
   }
 }
+export function singlePostReducer(singlePost = {}, action) {
+  switch (action.type) {
+    case 'FETCH_SINGLE_POST':
+      return { ...singlePost, singlePost: action.payload.post.data }
+    default:
+      return { ...singlePost }
+  }
+}

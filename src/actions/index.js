@@ -38,8 +38,16 @@ export async function fetchPostsByCategory(category) {
     }
 }
 
+export async function fetchSinglePost(id) {
+  let post = await axios.get(`${apiUrl}/posts/${id}`, options);
+  return {
+    type: 'FETCH_SINGLE_POST',
+    payload: { post }
+  }
+}
+// Post Actions
+
 export async function postBlog(data) {
-  console.log('data is: ', data);
   axios.defaults.headers.common['Authorization'] = 'justanexample';
   let postBlogResponse = await axios.post(`${apiUrl}/posts`, data);
   return {
