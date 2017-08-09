@@ -8,10 +8,11 @@ export function routePush(route) {
   return push(route)
 }
 
-// Fetch Options
+// Fetch (GET) Options
 const options = {
   headers: { Authorization: 'justanexample' }
 }
+
 // Fetch (GET) Actions
 export async function fetchCategories() {
   let categories = await axios.get(`${apiUrl}/categories`, options);
@@ -35,4 +36,14 @@ export async function fetchPostsByCategory(category) {
       type: 'FETCH_POSTS_BY_CATEGORY',
       payload: categoryPosts.data
     }
+}
+
+export async function postBlog(data) {
+  console.log('data is: ', data);
+  axios.defaults.headers.common['Authorization'] = 'justanexample';
+  let postBlogResponse = await axios.post(`${apiUrl}/posts`, data);
+  return {
+    type: 'POST_BLOG',
+    payload: postBlogResponse.data
+  }
 }

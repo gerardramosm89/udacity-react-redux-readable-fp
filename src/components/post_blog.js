@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  } from '../actions/index';
+import { postBlog } from '../actions/index';
 import uuidv1 from 'uuid/v1';
 
 class PostBlog extends Component {
@@ -8,15 +8,18 @@ class PostBlog extends Component {
     super(props);
     this.state = {
       title: '',
-      author: '',
+      owner: '',
       category: '',
       body: '',
-      id: uuidv1()
+      id: uuidv1(),
+      timestamp: Date.now()
     }
   }
 
   onFormSubmit(e) {
     e.preventDefault();
+    console.log(this.state);
+    this.props.postBlog(this.state);
   }
   handleInputChange(e) {
     this.setState({
@@ -37,7 +40,7 @@ class PostBlog extends Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleInputPassword1">Author</label>
-                  <input onChange={this.handleInputChange.bind(this)} name="author" className="form-control" placeholder="Enter Author" />
+                  <input onChange={this.handleInputChange.bind(this)} name="owner" className="form-control" placeholder="Enter Author" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleSelect1">Select category</label>
@@ -69,4 +72,4 @@ function mapStateToProps(state) {
     allPosts: state.allPosts.allPosts
   }
 }
-export default connect(mapStateToProps, null)(PostBlog);
+export default connect(mapStateToProps, { postBlog })(PostBlog);
