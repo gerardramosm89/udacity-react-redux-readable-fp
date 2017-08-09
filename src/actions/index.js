@@ -12,6 +12,7 @@ export function routePush(route) {
 const options = {
   headers: { Authorization: 'justanexample' }
 }
+// Fetch (GET) Actions
 export async function fetchCategories() {
   let categories = await axios.get(`${apiUrl}/categories`, options);
     return {
