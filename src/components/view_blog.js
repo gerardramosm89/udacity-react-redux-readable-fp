@@ -34,7 +34,10 @@ class ViewBlog extends Component {
   }
   handleDelete() {
     this.props.deletePost(this.props.singlePost.id)
-      .then(() => this.props.fetchAllPosts());
+      .then(() => {
+        this.props.fetchAllPosts()
+          .then(() => this.props.history.push('/'));
+      });
   }
   render() {
     return(
