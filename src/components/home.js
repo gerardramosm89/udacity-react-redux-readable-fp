@@ -68,8 +68,12 @@ class Home extends Component {
             <small>Author: {post.author}</small>
             <small>Votescore: {post.voteScore}</small>
           </Link>
-          <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}}className="btn btn-info">upvote</button>
-          <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}}className="btn btn-warning">downvote</button>
+          <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}} className="btn btn-info">upvote</button>
+          <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}} className="btn btn-warning">downvote</button>
+          <Link
+          to={`/editpost/${post.id}`} 
+          style={{position: 'absolute', left: '14.35rem', bottom: '1rem'}}
+          className="btn btn-success">Edit Post</Link>
         </div>
       ))
     }

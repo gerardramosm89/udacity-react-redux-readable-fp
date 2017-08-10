@@ -37,6 +37,7 @@ import ViewCategory from './components/view_category';
 import Navbar from './components/navbar';
 import PostBlog from './components/post_blog';
 import ViewBlog from './components/view_blog';
+import EditBlog from './components/edit_blog';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -46,6 +47,7 @@ ReactDOM.render(
           <Navbar />
           <Switch>
             <Route path="/posts/:id" component={ViewBlog} />
+            <Route path="/editpost/:id" component={EditBlog} />
             <Route path="/postblog" component={PostBlog} />
             <Route path="/:category/posts" component={ViewCategory} />
             <Route path="/" component={Home} />
