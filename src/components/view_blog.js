@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllPosts, fetchSinglePost, deletePost } from '../actions/index';
-
+import PostComment from './post_comment';
+import ViewComments from './view_comments';
 
 class ViewBlog extends Component {
   constructor(props){
@@ -28,6 +29,12 @@ class ViewBlog extends Component {
         <p>Body: { body }</p>
         <p>Category: { category }</p>
         <p>Votescore: { voteScore }</p>
+        <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete Post</button>
+        <hr />
+        <div className="row">
+          <PostComment parentId={id} />
+          <ViewComments parentId={id} />
+        </div>
       </div>
      );
     }
@@ -45,7 +52,6 @@ class ViewBlog extends Component {
         <div className="row">
           <div className="col-8 offset-2">
             {this.renderPost()}
-            <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete Post</button>            
           </div>
         </div>
       </div>
