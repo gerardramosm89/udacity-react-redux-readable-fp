@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSinglePost } from '../actions/index';
+import { fetchSinglePost, editBlog } from '../actions/index';
 
 class EditBlog extends Component {
   constructor(props){
     super(props);
     this.state = {
       title: '',
-      body: ''
+      body: '',
+      id: ''
     }
   }
   componentWillMount() {
     this.props.fetchSinglePost(this.props.match.params.id)
     .then((res) => {
-      let { title, body } = res.payload.post.data;
+      let { title, body, id } = res.payload.post.data;
       this.setState({
-        title, body
-      })
+        title, body, id
+      });
     });
   }
   onFormSubmit(e) {
     e.preventDefault();
-    this.props.postBlog(this.state);
+    this.props.editBlog(this.state)
+      .then(() => {
+        this.props.history.push('/');
+      });
   }
   handleInputChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
-  componentDidUpdate() {
-    console.log('this.state of edit is: ', this.state);
   }
   render() {
     return(
@@ -40,11 +41,11 @@ class EditBlog extends Component {
               <form onSubmit={this.onFormSubmit.bind(this)}>
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Title</label>
-                  <input name="title" onChange={this.handleInputChange.bind(this)} className="form-control" placeholder="Enter title for post" />
+                  <input value={this.state.title} name="title" onChange={this.handleInputChange.bind(this)} className="form-control" placeholder="Enter title for post" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleTextarea">Example textarea</label>
-                  <textarea onChange={this.handleInputChange.bind(this)} name="body" className="form-control" rows="5"></textarea>
+                  <textarea value={this.state.body} onChange={this.handleInputChange.bind(this)} name="body" className="form-control" rows="5"></textarea>
                 </div>
                 <button className="btn btn-primary">Submit</button>
               </form>
@@ -62,4 +63,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchSinglePost })(EditBlog);
+export default connect(mapStateToProps, { fetchSinglePost, editBlog })(EditBlog);

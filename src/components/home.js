@@ -57,25 +57,32 @@ class Home extends Component {
     if (this.props.allPosts) {
       let posts = this.props.allPosts;
       posts = posts.sort(sortBy(`${this.state.order}${this.state.sortPostsBy}`));
-      return posts.map(post => (
-        <div key={post.id} style={{position: 'relative'}}>
-          <Link style={{paddingBottom: '4rem'}} to={`/posts/${post.id}`} className="list-group-item list-group-item-action flex-column align-items-start">
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{post.title}</h5>
-              <small>Category: {post.category}</small>
-            </div>
-            <p className="mb-1">{post.body}</p>
-            <small>Author: {post.author}</small>
-            <small>Votescore: {post.voteScore}</small>
-          </Link>
-          <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}} className="btn btn-info">upvote</button>
-          <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}} className="btn btn-warning">downvote</button>
-          <Link
-          to={`/editpost/${post.id}`} 
-          style={{position: 'absolute', left: '14.35rem', bottom: '1rem'}}
-          className="btn btn-success">Edit Post</Link>
-        </div>
-      ))
+      return posts.map(post => {
+        if (post.deleted != true) {
+          return (
+          <div key={post.id} style={{position: 'relative'}}>
+            <Link style={{paddingBottom: '4rem'}} to={`/posts/${post.id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+              <div className="d-flex w-100 justify-content-between">
+                <h5 className="mb-1">{post.title}</h5>
+                <small>Category: {post.category}</small>
+              </div>
+              <p className="mb-1">{post.body}</p>
+              <small>Author: {post.author}</small>
+              <small>Votescore: {post.voteScore}</small>
+            </Link>
+            <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}} className="btn btn-info">upvote</button>
+            <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}} className="btn btn-warning">downvote</button>
+            <Link
+            to={`/editpost/${post.id}`} 
+            style={{position: 'absolute', left: '14.35rem', bottom: '1rem'}}
+            className="btn btn-success">Edit Post</Link>
+          </div>
+          )
+        }
+        else {
+          return
+        }
+    })
     }
   }
   render() {

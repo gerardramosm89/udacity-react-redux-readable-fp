@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSinglePost } from '../actions/index';
+import { fetchAllPosts, fetchSinglePost, deletePost } from '../actions/index';
 
 
 class ViewBlog extends Component {
@@ -11,7 +11,6 @@ class ViewBlog extends Component {
     this.props.fetchSinglePost(this.props.match.params.id);
   }
   renderPost() {
-
     if (this.props.singlePost !== undefined) {
       let {
       author,
@@ -33,12 +32,17 @@ class ViewBlog extends Component {
      );
     }
   }
+  handleDelete() {
+    this.props.deletePost(this.props.singlePost.id)
+      .then(() => this.props.fetchAllPosts());
+  }
   render() {
     return(
       <div className="container">
         <div className="row">
           <div className="col-8 offset-2">
-            {this.renderPost()}            
+            {this.renderPost()}
+            <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete Post</button>            
           </div>
         </div>
       </div>
@@ -54,4 +58,4 @@ function mapStateToProps(state) {
     singlePost: state.singlePost.singlePost
   }
 }
-export default connect(mapStateToProps, { fetchSinglePost })(ViewBlog);
+export default connect(mapStateToProps, { fetchAllPosts, fetchSinglePost, deletePost })(ViewBlog);
