@@ -25,6 +25,7 @@ class ViewBlog extends Component {
       timestamp,
       title,
       voteScore } = this.props.singlePost;
+      console.log(id);
      return(
       <div>
         <h1>{this.props.singlePost.title}</h1>
@@ -36,14 +37,22 @@ class ViewBlog extends Component {
         <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete Post</button>
         <hr />
         <div className="row">
-          {/* <PostComment parentId={id} /> */}
-          <CommentModal
-          primaryBtnName={`Post Comment`}
-          buttonName={`Post new comment`}
-          modalTitle={`Post Comment`}>
-            <PostComment parentId={id} />
-          </CommentModal>
-          <ViewComments parentId={id} />
+          <div className="col-12">
+            <CommentModal
+            parentId={this.props.singlePost.id}
+            primaryBtnName={`Post Comment`}
+            buttonName={`Post new comment`}
+            modalTitle={`Post Comment`}>
+              {/* <PostComment parentId={id} /> */}
+            </CommentModal>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              <hr />
+              <h1>Comments</h1>
+              <ViewComments parentId={id} />
+            </div>
+          </div>
         </div>
       </div>
      );
