@@ -29,11 +29,7 @@ class CommentModal extends Component {
       parentId: this.props.parentId
     }
   }
-  componentDidUpdate() {
-    console.log( this.closeButton );
-  }
   submitComment() {
-    console.log(this.state);
     this.props.postComment({ ...this.state, parentId: this.props.parentId})
       .then(() => this.props.fetchComments(this.props.parentId))
       .then(this.setState({ id: uuidv1()}))

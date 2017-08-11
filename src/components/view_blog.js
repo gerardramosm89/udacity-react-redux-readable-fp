@@ -50,7 +50,9 @@ class ViewBlog extends Component {
             <div className="col-12">
               <hr />
               <h1>Comments</h1>
-              <ViewComments parentId={id} />
+              <ViewComments 
+              history={this.props.history}
+              parentId={id} />
             </div>
           </div>
         </div>
