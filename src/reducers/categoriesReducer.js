@@ -30,3 +30,11 @@ export function singlePostReducer(singlePost = {}, action) {
       return { ...singlePost }
   }
 }
+export function currentPostCommentsReducer(currentComments = {}, action) {
+  switch (action.type) {
+    case 'FETCH_COMMENTS':
+      return { ...currentComments, currentCommments: action.payload }
+    default:
+      return { ...currentComments }
+  }
+}

@@ -8,10 +8,15 @@ class ViewComments extends Component {
   render() {
     return(
       <div>
-
+        
       </div>
     );
   }
 }
 
-export default connect(null, null)(ViewComments);
+function mapStateToProps(state) {
+  return {
+    comments: state.currentComments.currentComments
+  }
+}
+export default connect(mapStateToProps, null)(ViewComments);

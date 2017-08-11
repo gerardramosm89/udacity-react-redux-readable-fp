@@ -46,10 +46,18 @@ export async function fetchSinglePost(id) {
     payload: { post }
   }
 }
+
+export async function fetchComments(id) {
+  let fetchCommentsResponse = await axios.get(`${apiUrl}/posts/${id}/comments`);
+  return {
+    type: 'FETCH_COMMENTS',
+    payload: fetchCommentsResponse.data
+  }
+}
+
 // Post Actions
 
 export async function postBlog(data) {
-  // axios.defaults.headers.common['Authorization'] = 'justanexample';
   let postBlogResponse = await axios.post(`${apiUrl}/posts`, data);
   return {
     type: 'POST_BLOG',
@@ -58,7 +66,6 @@ export async function postBlog(data) {
 }
 
 export async function editBlog(data) {
-  // axios.defaults.headers.common['Authorization'] = 'justanexample';
   let editBlogResponse = await axios.put(`${apiUrl}/posts/${data.id}`, { title: data.title, body: data.body });
   return {
     type: 'EDIT_BLOG',
@@ -67,10 +74,18 @@ export async function editBlog(data) {
 }
 
 export async function deletePost(id) {
-  console.log(id);
   let deletePostResponse = await axios.delete(`${apiUrl}/posts/${id}`);
   return {
     type: 'DELETE_BLOG',
-    payload: deletePostResponse
+    payload: deletePostResponse.data
+  }
+}
+
+export async function postComment(data) {
+  console.log('data being sent to posts', data);
+  let postCommentResponse = await axios.post(`${apiUrl}/comments`, data)
+  return {
+    type: 'POST_COMMENT',
+    payload: postCommentResponse.data
   }
 }

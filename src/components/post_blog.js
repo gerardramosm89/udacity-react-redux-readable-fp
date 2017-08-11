@@ -18,7 +18,6 @@ class PostBlog extends Component {
 
   onFormSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
     this.props.postBlog(this.state);
   }
   handleInputChange(e) {
