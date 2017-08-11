@@ -73,7 +73,7 @@ class ViewBlog extends Component {
 function mapStateToProps(state) {
   return {
     singlePost: state.singlePost.singlePost,
-    theComments: state.singlePost.comments
+    comments: state.currentComments.currentComments
   }
 }
 export default connect(mapStateToProps, { fetchAllPosts, fetchSinglePost, deletePost, fetchComments })(ViewBlog);

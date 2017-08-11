@@ -35,7 +35,7 @@ export function singlePostReducer(singlePost = {singlePost: {}, comments: {} }, 
 export function currentPostCommentsReducer(currentComments = {}, action) {
   switch (action.type) {
     case 'FETCH_COMMENTS':
-      return { ...currentComments, currentCommments: action.payload }
+      return { ...currentComments, currentComments: action.payload }
     default:
       return { ...currentComments }
   }
