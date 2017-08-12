@@ -35,12 +35,12 @@ class Home extends Component {
   handleSortBy(e) {
     this.setState({
       sortPostsBy: e.target.value
-    }, () => console.log(this.state.sortPostsBy));
+    });
   }
   handleOrder(e) {
     this.setState({
       order: e.target.value
-    }, () => console.log(`${this.state.order}${this.state.sortPostsBy}`));
+    });
   }
   handleUpVote(id) {
     axios.defaults.headers.common['Authorization'] = 'justanexample';
