@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { fetchComments } from '../actions/index';
 import EditCommentModal from '../utils/edit_comment_modal';
+import sortBy from 'sort-by';
 
 class ViewComments extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      sortBy: 'voteScore',
+      order: ''
+    }
   }
   renderComments() {
     if (this.props.comments !== undefined) {
-      console.log(this.props.comments);
-      return this.props.comments.map(comment => {
+      let comments = this.props.comments;
+      comments = comments.sort(sortBy(`${this.state.order}${this.state.sortBy}`));
+      return comments.map(comment => {
         return (
           <li key={comment.id} className="list-group-item">
             <p style={{ width: '100%'}}>body: {comment.body}</p><br />
@@ -45,9 +51,31 @@ class ViewComments extends Component {
       })
     }
   }
+
+  handleSortBy(e) {
+    this.setState({
+      sortBy: e.target.value
+    });
+  }
+  handleOrder(e) {
+    this.setState({
+      order: e.target.value
+    });
+  }
   render() {
     return(
       <div>
+        <span>Sort By:</span>
+          <div className="form-group col-4 offset-4"> 
+          <select className="form-control" value={this.state.sortPostsBy} onChange={this.handleSortBy.bind(this)}>
+            <option value="voteScore">Vote Score</option>
+            <option value="timestamp">Timestamp</option>
+          </select>
+          <select className="form-control" value={this.state.order} onChange={this.handleOrder.bind(this)}>
+            <option value="-">Ascending</option>
+            <option value="">Descending</option>
+          </select>
+          </div>
         <ul className="list-group">
           {this.renderComments()}
         </ul>

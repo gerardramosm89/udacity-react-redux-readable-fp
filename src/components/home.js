@@ -109,7 +109,7 @@ class Home extends Component {
                   <option value="-">Ascending</option>
                   <option value="">Descending</option>
                 </select>
-               </div> 
+               </div>
               <div className="list-group">
                 {this.renderAllPosts()}
               </div>
