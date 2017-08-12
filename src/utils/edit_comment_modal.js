@@ -16,7 +16,9 @@ class EditCommentModal extends Component {
   componentDidMount() {
     this.setState({ body: this.props.body });
   }
-  submitComment() {
+  submitComment(e) {
+    e.preventDefault();
+    console.log(e.target);
     this.props.editComment(this.state)
     .then(() => this.props.fetchComments(this.props.parentId))
     .then(() => this.closeButton.click());
@@ -45,9 +47,9 @@ class EditCommentModal extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={this.submitComment.bind(this)}>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Body</label>
+                    <label>Body</label>
                     <input value={this.state.body} onChange={this.handleInputChange.bind(this)} name="body" type="text" className="form-control" placeholder="Enter body" />
                   </div>
                 </form>

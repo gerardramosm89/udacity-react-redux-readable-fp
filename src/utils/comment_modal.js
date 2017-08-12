@@ -29,7 +29,8 @@ class CommentModal extends Component {
       parentId: this.props.parentId
     }
   }
-  submitComment() {
+  submitComment(e) {
+    e.preventDefault();
     this.props.postComment({ ...this.state, parentId: this.props.parentId})
       .then(() => this.props.fetchComments(this.props.parentId))
       .then(this.setState({ id: uuidv1()}))
@@ -59,18 +60,15 @@ class CommentModal extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={this.submitComment.bind(this)}>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Author</label>
+                    <label>Author</label>
                     <input onChange={this.handleInputChange.bind(this)} name="author" type="text" className="form-control" placeholder="Enter title" />
                   </div>
-
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Body</label>
+                    <label>Body</label>
                     <input onChange={this.handleInputChange.bind(this)} name="body" type="text" className="form-control" placeholder="Enter body" />
                   </div>
-
-
                 </form>
               </div>
               <div className="modal-footer">

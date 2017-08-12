@@ -10,7 +10,7 @@ class ViewComments extends Component {
     super(props);
     this.state = {
       sortBy: 'voteScore',
-      order: ''
+      order: '-'
     }
   }
   renderComments() {
@@ -18,11 +18,13 @@ class ViewComments extends Component {
       let comments = this.props.comments;
       comments = comments.sort(sortBy(`${this.state.order}${this.state.sortBy}`));
       return comments.map(comment => {
+        let time = new Date(comment.timestamp*1000);
         return (
           <li key={comment.id} className="list-group-item">
             <p style={{ width: '100%'}}>body: {comment.body}</p><br />
             <p style={{ width: '100%'}}>author: {comment.author}</p><br />
             <p style={{ width: '100%'}}>votescore: {comment.voteScore}</p><br />
+            <p style={{ width: '100%'}}>timestamp: {time.toDateString()}</p><br />
             <button 
             className="btn btn-primary"
             onClick={(props) => {
@@ -62,20 +64,32 @@ class ViewComments extends Component {
       order: e.target.value
     });
   }
+  renderSort() {
+    if (this.props.comments !== undefined && this.props.comments.length > 0) {
+      return(
+        <div>
+          <span>Sort By:</span>
+            <div className="form-group col-4 offset-4"> 
+              <select className="form-control" value={this.state.sortPostsBy} onChange={this.handleSortBy.bind(this)}>
+                <option value="voteScore">Vote Score</option>
+                <option value="timestamp">Timestamp</option>
+              </select>
+              <select 
+              className="form-control"
+              value={this.state.order}
+              onChange={this.handleOrder.bind(this)}>
+                <option value="-">Ascending</option>
+                <option value="">Descending</option>
+              </select>
+            </div>
+          </div>
+      );
+    }
+  }
   render() {
     return(
       <div>
-        <span>Sort By:</span>
-          <div className="form-group col-4 offset-4"> 
-          <select className="form-control" value={this.state.sortPostsBy} onChange={this.handleSortBy.bind(this)}>
-            <option value="voteScore">Vote Score</option>
-            <option value="timestamp">Timestamp</option>
-          </select>
-          <select className="form-control" value={this.state.order} onChange={this.handleOrder.bind(this)}>
-            <option value="-">Ascending</option>
-            <option value="">Descending</option>
-          </select>
-          </div>
+        {this.renderSort()}
         <ul className="list-group">
           {this.renderComments()}
         </ul>

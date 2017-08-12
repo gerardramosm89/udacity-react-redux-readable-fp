@@ -82,7 +82,6 @@ export async function deletePost(id) {
 }
 
 export async function postComment(data) {
-  console.log('data being sent to post comments', data);
   let postCommentResponse = await axios.post(`${apiUrl}/comments`, data)
   return {
     type: 'POST_COMMENT',

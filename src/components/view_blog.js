@@ -4,6 +4,7 @@ import { fetchAllPosts, fetchSinglePost, deletePost, fetchComments } from '../ac
 import PostComment from './post_comment';
 import ViewComments from './view_comments';
 import CommentModal from '../utils/comment_modal';
+import { Link } from 'react-router-dom';
 
 class ViewBlog extends Component {
   constructor(props){
@@ -25,7 +26,7 @@ class ViewBlog extends Component {
       timestamp,
       title,
       voteScore } = this.props.singlePost;
-      console.log(id);
+      let time = new Date(timestamp*1000);
      return(
       <div>
         <h1>{this.props.singlePost.title}</h1>
@@ -34,7 +35,11 @@ class ViewBlog extends Component {
         <p>Body: { body }</p>
         <p>Category: { category }</p>
         <p>Votescore: { voteScore }</p>
+        <p>Time: { time.toDateString() }</p>
         <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete Post</button>
+        <Link
+        to={`/editpost/${this.props.singlePost.id}`}
+        className="btn btn-success">Edit Post</Link>
         <hr />
         <div className="row">
           <div className="col-12">

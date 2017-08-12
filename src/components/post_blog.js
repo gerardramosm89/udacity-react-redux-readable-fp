@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { postBlog } from '../actions/index';
 import uuidv1 from 'uuid/v1';
+import moment from 'moment';
 
 class PostBlog extends Component {
   constructor(props){
@@ -18,7 +19,8 @@ class PostBlog extends Component {
 
   onFormSubmit(e) {
     e.preventDefault();
-    this.props.postBlog(this.state);
+    this.props.postBlog(this.state)
+      .then(() => this.props.history.push('/'));
   }
   handleInputChange(e) {
     this.setState({
