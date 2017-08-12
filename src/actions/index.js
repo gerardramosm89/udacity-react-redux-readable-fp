@@ -89,3 +89,11 @@ export async function postComment(data) {
     payload: postCommentResponse.data
   }
 }
+
+export async function editComment(data) {
+  let editCommentResponse = await axios.put(`${apiUrl}/comments/${data.id}`, data);
+  return {
+    type: 'EDIT_COMMENT',
+    payload: editCommentResponse
+  }
+}
