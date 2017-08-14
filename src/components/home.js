@@ -16,8 +16,8 @@ class Home extends Component {
     }
   }
   componentWillMount() {
-    this.props.fetchCategories();
-    this.props.fetchAllPosts();
+    this.props.fetchCategories()
+      .then(() => this.props.fetchAllPosts());
   }
   renderCategories() {
     if (this.props.categories) {
