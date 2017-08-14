@@ -27,6 +27,9 @@ class ViewBlog extends Component {
       title,
       voteScore } = this.props.singlePost;
       let time = new Date(timestamp*1000);
+      time = time.toDateString().toString();
+      time = time.split('').splice(0, 10);
+
      return(
       <div>
         <h1>{this.props.singlePost.title}</h1>
@@ -35,7 +38,7 @@ class ViewBlog extends Component {
         <p>Body: { body }</p>
         <p>Category: { category }</p>
         <p>Votescore: { voteScore }</p>
-        <p>Time: { time.toDateString() }</p>
+        <p>Time: { time }</p>
         <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete Post</button>
         <Link
         to={`/editpost/${this.props.singlePost.id}`}

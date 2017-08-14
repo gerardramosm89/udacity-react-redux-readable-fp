@@ -19,12 +19,13 @@ class ViewComments extends Component {
       comments = comments.sort(sortBy(`${this.state.order}${this.state.sortBy}`));
       return comments.map(comment => {
         let time = new Date(comment.timestamp*1000);
+        time = time.toString().split('').splice(0,10);
         return (
           <li key={comment.id} className="list-group-item">
             <p style={{ width: '100%'}}>body: {comment.body}</p><br />
             <p style={{ width: '100%'}}>author: {comment.author}</p><br />
             <p style={{ width: '100%'}}>votescore: {comment.voteScore}</p><br />
-            <p style={{ width: '100%'}}>timestamp: {time.toDateString()}</p><br />
+            <p style={{ width: '100%'}}>timestamp: {time}</p><br />
             <button 
             className="btn btn-primary"
             onClick={(props) => {

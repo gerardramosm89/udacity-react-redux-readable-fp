@@ -59,6 +59,8 @@ class Home extends Component {
       posts = posts.sort(sortBy(`${this.state.order}${this.state.sortPostsBy}`));
       return posts.map(post => {
         if (post.deleted != true) {
+          let time = new Date(post.timestamp*1000);
+          time = time.toString().split('').splice(0,10);
           return (
           <div key={post.id} style={{position: 'relative'}}>
             <Link style={{paddingBottom: '4rem'}} to={`/posts/${post.id}`} className="list-group-item list-group-item-action flex-column align-items-start">
@@ -69,6 +71,7 @@ class Home extends Component {
               <p className="mb-1">{post.body}</p>
               <small>Author: {post.author}</small>
               <small>Votescore: {post.voteScore}</small>
+              <small>Timestamp: {time}</small>
             </Link>
             <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}} className="btn btn-info">upvote</button>
             <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}} className="btn btn-warning">downvote</button>

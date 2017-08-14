@@ -30,19 +30,35 @@ class ViewCategory extends Component {
   }
   renderPostsByCategory() {
     return this.props.postsByCategory ? (
-      this.props.postsByCategory.map(post => (
-        <li className="list-group-item" key={post.id}>
-          <h5 style={{ width: '100%'}}>Title: {post.title}</h5>
-          <h5 style={{ width: '100%'}}>Author: {post.author}</h5>
-          <p style={{ width: '100%'}}>Body: {post.body}</p>
-          <p style={{ width: '100%'}}>Vote Score: {post.voteScore}</p>
-
-            <button onClick={this.handleUpVote.bind(this, post.id)} className="btn btn-info">upvote</button>
-            <button onClick={this.handleDownVote.bind(this, post.id)} className="btn btn-warning">downvote</button>
-
-          <Link to={`/posts/${post.id}`} className="btn btn-primary">View Post</Link>
-        </li>
-      ))
+      this.props.postsByCategory.map(post => {
+        if (post.deleted != true) {
+          let time = new Date(post.timestamp*1000);
+          time = time.toString().split('').splice(0,10);
+          return (
+          <div key={post.id} style={{position: 'relative'}}>
+            <Link style={{paddingBottom: '4rem'}} to={`/posts/${post.id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+              <div className="d-flex w-100 justify-content-between">
+                <h5 className="mb-1">{post.title}</h5>
+                <small>Category: {post.category}</small>
+              </div>
+              <p className="mb-1">{post.body}</p>
+              <small>Author: {post.author}</small>
+              <small>Votescore: {post.voteScore}</small>
+              <small>Timestamp: {time}</small>
+            </Link>
+            <button onClick={this.handleUpVote.bind(this, post.id)} style={{position: 'absolute', left: '1rem', bottom: '1rem'}} className="btn btn-info">upvote</button>
+            <button onClick={this.handleDownVote.bind(this, post.id)} style={{position: 'absolute', left: '7rem', bottom: '1rem'}} className="btn btn-warning">downvote</button>
+            <Link
+            to={`/editpost/${post.id}`} 
+            style={{position: 'absolute', left: '14.35rem', bottom: '1rem'}}
+            className="btn btn-success">Edit Post</Link>
+          </div>
+          )
+        }
+        else {
+          return
+        }
+    })
     ) : '';
   }
   render() {
