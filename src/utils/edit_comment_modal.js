@@ -18,7 +18,6 @@ class EditCommentModal extends Component {
   }
   submitComment(e) {
     e.preventDefault();
-    console.log(e.target);
     this.props.editComment(this.state)
     .then(() => this.props.fetchComments(this.props.parentId))
     .then(() => this.closeButton.click());
