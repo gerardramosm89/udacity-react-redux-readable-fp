@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPostsByCategory, routePush } from '../actions/index';
+import { fetchAllPosts, fetchPostsByCategory, routePush } from '../actions/index';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -20,20 +20,20 @@ class ViewCategory extends Component {
   handleUpVote(id) {
     axios.defaults.headers.common['Authorization'] = 'justanexample';
     let options = { option: 'upVote' };
-    axios.post(`http://localhost:5001/posts/${id}`, options).then(() => this.props.fetchAllPosts());
+    axios.post(`http://localhost:5001/posts/${id}`, options).then(() => this.props.fetchPostsByCategory(this.props.match.params.category));
   }
   handleDownVote(id) {
     axios.defaults.headers.common['Authorization'] = 'justanexample';
     let options = { option: 'downVote' };
     axios.post(`http://localhost:5001/posts/${id}`, options)
-      .then(() => this.props.fetchAllPosts());
+      .then(() => this.props.fetchPostsByCategory(this.props.match.params.category));
   }
   renderPostsByCategory() {
     return this.props.postsByCategory ? (
       this.props.postsByCategory.map(post => {
         if (post.deleted != true) {
-          let time = new Date(post.timestamp*1000);
-          time = time.toString().split('').splice(0,10);
+          let newTime = new Date(post.timestamp*1000);
+          let time = newTime.toString().split('').splice(0,10);
           return (
           <div key={post.id} style={{position: 'relative'}}>
             <Link style={{paddingBottom: '4rem'}} to={`/posts/${post.id}`} className="list-group-item list-group-item-action flex-column align-items-start">
@@ -81,4 +81,4 @@ function mapStateToProps(state) {
     postsByCategory: state.postsByCategory.postsByCategory
   }
 }
-export default connect(mapStateToProps, { fetchPostsByCategory, routePush })(ViewCategory);
+export default connect(mapStateToProps, { fetchAllPosts, fetchPostsByCategory, routePush })(ViewCategory);
