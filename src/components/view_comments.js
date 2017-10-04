@@ -18,8 +18,9 @@ class ViewComments extends Component {
       let comments = this.props.comments;
       comments = comments.sort(sortBy(`${this.state.order}${this.state.sortBy}`));
       return comments.map(comment => {
-        let time = new Date(comment.timestamp*1000);
-        time = time.toString().split('').splice(0,10);
+        // let time = new Date(comment.timestamp*1000);
+        // time = time.toString().split('').splice(0,10);
+        let time = Date(comment.timestamp);
         return (
           <li key={comment.id} className="list-group-item">
             <p style={{ width: '100%'}}>body: {comment.body}</p><br />
