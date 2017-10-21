@@ -13,6 +13,9 @@ class ViewBlog extends Component {
   componentWillMount() {
     this.props.fetchSinglePost(this.props.match.params.id)
       .then(() => {
+        if (Object.keys(this.props.singlePost).length === 0 && this.props.singlePost.constructor === Object) {
+          this.props.history.push('/fourohfour');
+        }
         this.props.fetchComments(this.props.singlePost.id);
       });
   }
