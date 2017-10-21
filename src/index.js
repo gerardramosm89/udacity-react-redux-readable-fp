@@ -38,7 +38,7 @@ import Navbar from './components/navbar';
 import PostBlog from './components/post_blog';
 import ViewBlog from './components/view_blog';
 import EditBlog from './components/edit_blog';
-
+import FourOhFour from './components/404';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -50,6 +50,7 @@ ReactDOM.render(
             <Route path="/editpost/:id" component={EditBlog} />
             <Route path="/postblog" component={PostBlog} />
             <Route path="/:category/posts" component={ViewCategory} />
+            <Route path="/fourohfour" component={FourOhFour} />            
             <Route path="/" component={Home} />
           </Switch>
         </div>
